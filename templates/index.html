@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR文字识别系统</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <button class="collapse-btn" id="collapseBtn" title="收起侧边栏">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="sidebar-content" id="sidebarContent">
+                <div class="upload-section">
+                    <div class="upload-box" id="dropZone">
+                        <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.bmp,.pdf" multiple hidden>
+                        <div class="upload-content">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                            </svg>
+                            <p>点击或拖拽上传（支持批量）</p>
+                            <p class="hint">PNG, JPG, JPEG, BMP, PDF | 支持 Ctrl+V 粘贴图片</p>
+                        </div>
+                    </div>
+
+                    <div class="preview-section" id="previewSection" style="display: none;">
+                        <div class="preview-info">
+                            <span class="file-count" id="fileCount"></span>
+                            <span class="file-size" id="fileSize"></span>
+                        </div>
+                        <div class="file-list" id="fileList"></div>
+                    </div>
+
+                    <button class="btn-primary" id="processBtn" disabled>开始识别</button>
+
+                    <div class="progress-section" id="progressSection" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p class="progress-text" id="progressText">处理中...</p>
+                    </div>
+                </div>
+
+                <div class="history-section">
+                    <div class="history-header">
+                        <h3>历史记录</h3>
+                    </div>
+                    <div class="history-list" id="historyList">
+                        <div class="history-empty" id="historyEmpty">暂无历史记录</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="expand-btn" id="expandBtn" title="展开侧边栏" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </div>
+
+            <div class="result-panel" id="resultPanel">
+                <div class="welcome-panel" id="welcomePanel">
+                    <div class="welcome-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                        </svg>
+                    </div>
+                    <p>选择历史记录或上传新图片开始识别</p>
+                </div>
+
+                <div class="ocr-result" id="ocrResult" style="display: none;">
+                    <div class="result-header">
+                        <div class="page-tabs" id="pageTabs"></div>
+                        <button class="btn-secondary" id="newUploadBtn">新建上传</button>
+                    </div>
+
+                    <div class="ocr-display">
+                        <div class="ocr-column">
+                            <h3 class="column-title">原图</h3>
+                            <div class="image-container" id="originalContainer">
+                                <img id="originalImage" src="" alt="原图">
+                            </div>
+                        </div>
+                        <div class="ocr-column">
+                            <h3 class="column-title">识别结果（点击文字可复制）</h3>
+                            <div class="image-container" id="textOnlyContainer">
+                                <div class="img-wrapper">
+                                    <img id="textOnlyImage" src="" alt="识别结果">
+                                    <div id="textOverlay"></div>
+                                </div>
+                            </div>
+                            <div class="text-results">
+                                <div class="button-row">
+                                    <button class="copy-all-btn" id="copyAllBtn">复制全部文字</button>
+                                    <button class="sort-toggle-btn" id="sortToggleBtn">古文模式</button>
+                                </div>
+                                <div class="text-list" id="textList"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+        </main>
+    </div>
+    
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
